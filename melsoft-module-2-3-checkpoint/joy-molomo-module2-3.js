@@ -1413,3 +1413,235 @@ the array structure clean.
 
 
 
+// ======================================================
+// CHALLENGE 8 - BITWISE PERMISSION SYSTEM
+// ======================================================
+
+// Permission flags
+const READ = 1;      // 0001
+const WRITE = 2;     // 0010
+const DELETE = 4;    // 0100
+const ADMIN = 8;     // 1000
+
+console.log("========== BITWISE PERMISSIONS ==========");
+
+// ------------------------------------------------------
+// 1. Create a user with READ + WRITE
+// ------------------------------------------------------
+
+let userPermissions = READ | WRITE;
+
+console.log(
+  "User Permissions (READ + WRITE):",
+  userPermissions
+);
+
+// ------------------------------------------------------
+// 2. Create admin user with ALL permissions
+// ------------------------------------------------------
+
+const adminPermissions =
+  READ | WRITE | DELETE | ADMIN;
+
+console.log(
+  "Admin Permissions:",
+  adminPermissions
+);
+
+// ------------------------------------------------------
+// 3. Check READ permission
+// ------------------------------------------------------
+
+console.log(
+  "Has READ?",
+  (userPermissions & READ)
+    ? "Yes"
+    : "No"
+);
+
+// ------------------------------------------------------
+// 4. Check DELETE permission
+// ------------------------------------------------------
+
+console.log(
+  "Has DELETE?",
+  (userPermissions & DELETE)
+    ? "Yes"
+    : "No"
+);
+
+// ------------------------------------------------------
+// 5. Grant DELETE permission
+// ------------------------------------------------------
+
+userPermissions |= DELETE;
+
+console.log(
+  "After Granting DELETE:",
+  userPermissions
+);
+
+console.log(
+  "Has DELETE Now?",
+  (userPermissions & DELETE)
+    ? "Yes"
+    : "No"
+);
+
+// ------------------------------------------------------
+// 6. Revoke WRITE permission
+// ------------------------------------------------------
+
+userPermissions &= ~WRITE;
+
+console.log(
+  "After Removing WRITE:",
+  userPermissions
+);
+
+console.log(
+  "Has WRITE?",
+  (userPermissions & WRITE)
+    ? "Yes"
+    : "No"
+);
+
+// ------------------------------------------------------
+// 7. Toggle ADMIN using XOR (^)
+// ------------------------------------------------------
+
+let staffPermissions = READ | WRITE;
+
+console.log(
+  "Before Toggle ADMIN:",
+  staffPermissions
+);
+
+// Turn ADMIN on
+staffPermissions ^= ADMIN;
+
+console.log(
+  "Toggle ADMIN ON:",
+  staffPermissions
+);
+
+// Turn ADMIN off
+staffPermissions ^= ADMIN;
+
+console.log(
+  "Toggle ADMIN OFF:",
+  staffPermissions
+);
+
+// ------------------------------------------------------
+// 8. Create SUPER_ADMIN using left shift
+// ------------------------------------------------------
+
+const SUPER_ADMIN = ADMIN << 1;
+
+console.log(
+  "SUPER_ADMIN:",
+  SUPER_ADMIN
+);
+
+console.log(
+  "SUPER_ADMIN Binary Value Created From ADMIN << 1"
+);
+
+
+
+// ======================================================
+// INTERVIEW ANSWERS
+// ======================================================
+
+/*
+=========================================================
+QUESTION 1
+Why use bitwise flags instead of an array such as
+['read', 'write']?
+=========================================================
+
+1. Performance
+
+Bitwise operations are extremely fast because they
+operate directly on binary values.
+
+Example:
+
+permissions & READ
+
+is faster than searching through an array.
+
+2. Memory Efficiency
+
+One number can store many permissions.
+
+Example:
+
+15
+
+can represent:
+
+READ
+WRITE
+DELETE
+ADMIN
+
+using only a single integer.
+=========================================================
+*/
+
+
+/*
+=========================================================
+QUESTION 2
+What is the downside of bitwise permissions?
+=========================================================
+
+Bitwise values are harder for humans to read.
+
+Seeing:
+
+13
+
+does not immediately tell you which permissions
+a user has.
+
+For very small applications an array such as:
+
+['read', 'write']
+
+may be easier to understand and maintain.
+=========================================================
+*/
+
+
+/*
+=========================================================
+QUESTION 3
+Difference between &, &&, | and ||
+=========================================================
+
+&  = Bitwise AND
+&& = Logical AND
+
+|  = Bitwise OR
+|| = Logical OR
+
+Example:
+
+const hasPermission = permissions & READ;
+
+This checks bits inside a number.
+
+Example:
+
+const canLogin = isLoggedIn && isVerified;
+
+This checks boolean conditions.
+
+Using && instead of & in a permissions system
+would produce incorrect permission checks and
+cause silent security bugs.
+=========================================================
+*/

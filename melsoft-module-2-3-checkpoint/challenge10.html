@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Challenge 10 - User Interaction HTML Flow</title>
+</head>
+<body>
+
+<script>
+
+// ======================================================
+// CHALLENGE 10 - USER INTERACTION HTML FLOW
+// ======================================================
+
+// 1. Greet the user
+window.alert("Welcome to the User Registration Program!");
+
+
+// ======================================================
+// 2. Ask for user's name
+// ======================================================
+
+let userName = window.prompt("Please enter your name:");
+
+// Default to Guest if Cancel or blank
+if (userName === null || userName.trim() === "") {
+    userName = "Guest";
+} else {
+    userName = userName.trim();
+}
+
+
+// ======================================================
+// 3. Ask for user's age
+// ======================================================
+
+const ageInput = window.prompt("Please enter your age:");
+
+const userAge = Number(ageInput);
+
+// Validate age
+if (
+    Number.isNaN(userAge) ||
+    userAge < 1 ||
+    userAge > 120
+) {
+    window.alert(
+        "Invalid age entered. Please refresh the page and try again."
+    );
+}
+else {
+
+    // ==================================================
+    // 4. Assign tier using ternary operator
+    // ==================================================
+
+     
+}

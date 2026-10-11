@@ -1937,3 +1937,101 @@ financial calculations.
 
 
 
+
+
+
+
+
+
+/*
+=========================================================
+CHALLENGE 12 - SELF REFLECTION
+=========================================================
+
+1.
+
+The most important thing I learned about JavaScript's
+type system is that values can change type automatically
+through coercion. One example was when "5" + 3 produced
+"53" instead of 8 because JavaScript treated the number
+as a string and performed concatenation.
+
+
+2.
+
+Using === is usually safer because it compares both value
+and data type. For example, 0 == false returns true,
+which could create a bug in business logic. Using
+0 === false correctly returns false.
+
+
+3.
+
+I would use the nullish coalescing operator (??) when
+a value of 0 or an empty string is still considered
+valid. For example:
+
+const count = 0 ?? 10;
+
+returns 0.
+
+Using:
+
+const count = 0 || 10;
+
+returns 10.
+
+This changes the result completely.
+
+
+4.
+
+typeof null returns "object" because of a historical
+bug in the earliest JavaScript implementation. To check
+specifically for null, I would use:
+
+value === null
+
+This avoids being misled by typeof.
+
+
+5.
+
+A realistic production bug could happen when a price
+is received from a form as a string. If a developer
+forgets to convert it to a number, arithmetic can turn
+into string concatenation and produce incorrect totals.
+
+
+6.
+
+0.1 + 0.2 does not equal exactly 0.3 because these
+decimal numbers cannot be represented perfectly in
+binary floating-point format. Real banking systems
+typically store money as integers representing cents
+rather than floating-point values to avoid precision
+problems.
+
+
+7.
+
+The operators & and | are bitwise operators that work
+with binary values. The operators && and || are logical
+operators that work with boolean expressions.
+
+A silent bug could happen if a developer accidentally
+uses & instead of && inside a permission check and
+gets an unexpected numeric result instead of a boolean.
+
+
+8.
+
+The hardest concept for me was understanding type
+coercion because many values are automatically converted
+behind the scenes. What made it click was repeatedly
+testing expressions in the console and observing both
+the value and the type returned by JavaScript.
+
+=========================================================
+
+*/

@@ -1645,3 +1645,294 @@ would produce incorrect permission checks and
 cause silent security bugs.
 =========================================================
 */
+
+
+
+
+// ======================================================
+// CHALLENGE 9 - REAL-WORLD PAYROLL + BANKING CALCULATOR
+// ======================================================
+
+// Helper functions
+
+function formatZAR(amount) {
+  return "R " + amount.toLocaleString("en-ZA", {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
+  });
+}
+
+function formatUSD(amount) {
+  return "$" + amount.toLocaleString("en-US", {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
+  });
+}
+
+
+// ======================================================
+// SCENARIO 1 - PAYROLL PROCESSOR
+// ======================================================
+
+console.log("\n================================");
+console.log("SCENARIO 1 - PAYROLL PROCESSOR");
+console.log("================================");
+
+// Use unique variable names to avoid conflicts
+
+const payrollGrossSalary = 45000;
+
+const payrollPayeTax = payrollGrossSalary * 0.25;
+
+const payrollUif = Math.min(
+  payrollGrossSalary * 0.01,
+  177.12
+);
+
+const payrollMedicalAid = 2500;
+
+const payrollPension =
+  payrollGrossSalary * 0.075;
+
+const payrollTotalDeductions =
+  payrollPayeTax +
+  payrollUif +
+  payrollMedicalAid +
+  payrollPension;
+
+const payrollNetSalary =
+  payrollGrossSalary -
+  payrollTotalDeductions;
+
+console.log(
+  "Gross Salary:",
+  formatZAR(payrollGrossSalary)
+);
+
+console.log(
+  "PAYE Tax:",
+  formatZAR(payrollPayeTax)
+);
+
+console.log(
+  "UIF:",
+  formatZAR(payrollUif)
+);
+
+console.log(
+  "Medical Aid:",
+  formatZAR(payrollMedicalAid)
+);
+
+console.log(
+  "Pension:",
+  formatZAR(payrollPension)
+);
+
+console.log(
+  "Total Deductions:",
+  formatZAR(payrollTotalDeductions)
+);
+
+console.log(
+  "Net Salary:",
+  formatZAR(payrollNetSalary)
+);
+
+
+// Form input simulation
+
+const payrollSalaryInput = "45000";
+
+const payrollConvertedSalary =
+  Number(payrollSalaryInput);
+
+if (
+  Number.isNaN(payrollConvertedSalary) ||
+  payrollConvertedSalary <= 0
+) {
+  console.log("Invalid salary input");
+} else {
+  console.log(
+    "Validated Salary:",
+    formatZAR(payrollConvertedSalary)
+  );
+}
+
+
+
+// ======================================================
+// SCENARIO 2 - COMPOUND INTEREST SAVINGS
+// ======================================================
+
+console.log("\n================================");
+console.log("SCENARIO 2 - COMPOUND INTEREST");
+console.log("================================");
+
+const savingsPrincipal = 25000;
+const savingsRate = 0.075;
+const savingsCompounds = 12;
+const savingsYears = 3;
+
+const savingsFinalBalance =
+  savingsPrincipal *
+  Math.pow(
+    1 + savingsRate / savingsCompounds,
+    savingsCompounds * savingsYears
+  );
+
+const savingsInterestEarned =
+  savingsFinalBalance - savingsPrincipal;
+
+const savingsEffectiveRate =
+  (
+    Math.pow(
+      savingsFinalBalance /
+        savingsPrincipal,
+      1 / savingsYears
+    ) - 1
+  ) * 100;
+
+console.log(
+  "Final Balance:",
+  formatZAR(savingsFinalBalance)
+);
+
+console.log(
+  "Interest Earned:",
+  formatZAR(savingsInterestEarned)
+);
+
+console.log(
+  "Effective Annual Rate:",
+  savingsEffectiveRate.toFixed(2) + "%"
+);
+
+
+// Monthly fee ternary
+
+function calculateMonthlyFee(balance) {
+  return balance < 1000
+    ? 25
+    : balance < 5000
+    ? 50
+    : balance < 25000
+    ? 75
+    : 0;
+}
+
+const feeBalances = [
+  500,
+  1500,
+  10000,
+  50000
+];
+
+feeBalances.forEach((balance) => {
+  const monthlyFee =
+    calculateMonthlyFee(balance);
+
+  const annualFee =
+    monthlyFee * 12;
+
+  console.log("\nBalance:", formatZAR(balance));
+  console.log(
+    "Monthly Fee:",
+    formatZAR(monthlyFee)
+  );
+  console.log(
+    "Annual Fee Impact:",
+    formatZAR(annualFee)
+  );
+});
+
+
+
+// ======================================================
+// SCENARIO 3 - MULTI-CURRENCY TRANSFER
+// ======================================================
+
+console.log("\n================================");
+console.log("SCENARIO 3 - CURRENCY TRANSFER");
+console.log("================================");
+
+const transferZarAmount = 15750.33;
+
+const transferExchangeRate = 18.42;
+
+const transferCommissionRate = 0.025;
+
+const transferCommission =
+  transferZarAmount *
+  transferCommissionRate;
+
+const transferAfterCommission =
+  transferZarAmount -
+  transferCommission;
+
+const transferUsdReceived =
+  transferAfterCommission /
+  transferExchangeRate;
+
+console.log(
+  "Original Amount:",
+  formatZAR(transferZarAmount)
+);
+
+console.log(
+  "Commission:",
+  formatZAR(transferCommission)
+);
+
+console.log(
+  "ZAR After Commission:",
+  formatZAR(transferAfterCommission)
+);
+
+console.log(
+  "USD Received:",
+  formatUSD(transferUsdReceived)
+);
+
+
+/*
+=========================================================
+FINAL WRITTEN ANSWER
+=========================================================
+
+Floating-point precision can cause small rounding
+errors when working with money.
+
+A common example is:
+
+0.1 + 0.2
+
+which produces:
+
+0.30000000000000004
+
+instead of exactly 0.3.
+
+To display accurate financial values this solution
+formats currency values to two decimal places and
+uses locale-based formatting.
+
+Real banks usually store money as cents rather than
+floating-point values.
+
+For example:
+
+R 123.45
+
+would be stored internally as:
+
+12345 cents
+
+This avoids floating-point precision problems during
+financial calculations.
+=========================================================
+*/
+
+
+
+

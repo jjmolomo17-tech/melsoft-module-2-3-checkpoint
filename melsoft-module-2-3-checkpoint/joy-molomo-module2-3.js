@@ -1198,3 +1198,218 @@ console.log(
   "| Type:",
   typeof null?.foo?.bar?.baz
 );
+
+
+
+
+
+// ======================================================
+// CHALLENGE 7 - typeof, instanceof, delete
+// ======================================================
+
+
+// ======================================================
+// PART A - typeof Mastery
+// ======================================================
+
+console.log("\n========== PART A ==========");
+
+console.log("1:", typeof 42);
+console.log("2:", typeof "hello");
+console.log("3:", typeof true);
+console.log("4:", typeof undefined);
+console.log("5:", typeof null);
+console.log("6:", typeof {});
+console.log("7:", typeof []);
+console.log("8:", typeof function () {});
+console.log("9:", typeof NaN);
+console.log("10:", typeof undeclaredVariable);
+
+/*
+typeof undeclaredVariable returns "undefined"
+instead of throwing an error.
+*/
+
+const myArray = [1, 2, 3];
+const myObject = { name: "Joy" };
+
+console.log("Array Check:", Array.isArray(myArray));
+console.log("Object Check:", Array.isArray(myObject));
+
+/*
+Reliable array detection:
+
+Array.isArray(value)
+
+This correctly distinguishes arrays from objects.
+*/
+
+
+// ===========================*==========================
+// PART*B - instanceof
+// ======================================================
+
+console.log("\n========== PART B ==========");
+
+console.log("1:", [] instanceof Array);
+console.log("2:", [] instanceof Object);
+console.log("3:", {} instanceof Object);
+console.log("4:", "hello" instanceof String);
+console.log("5:", new String("hello") instanceof String);
+console.log("6:", false); // 42 instanceof Number would crash
+console.log("7:", new Date() instanceof Date);
+console.log("8:", /abc/ instanceof RegExp);
+
+/*
+Why is "hello" instanceof String false?
+
+Because "hello" is a primitive string,
+not a String object.
+
+Why is new String("hello") instanceof String true?
+
+Because it creates a String object.
+*/
+
+
+/*
+typeof is correct when:
+
+Checking primitive types:
+
+typeof "hello" === "string"
+
+
+instanceof is correct when:
+
+Checking constructed objects:
+
+value instanceof Date
+value instanceof Array
+*/
+
+
+// =====================*================================
+/* PART C - delete and its gotchas
+/* =================================*====================
+
+console.log(*\n========== PART C ==========");
+*
+// ------------------------------*-----------------------
+// 1 Delet* property from object
+// ---------*----------------------------------*---------
+
+const user = {
+  name: *Lerato",
+  age: 25,
+  role: "student"
+};
+
+console.log("Before Delete:", user);
+
+delete user.role;
+
+console.log("After Delete:", user);
+
+
+// ------------------------------------------------------
+// 2 delete works on object properties
+// ------------------------------------------------------
+
+const demoObject = {
+  value: 5
+};
+
+console.log("Before Delete:", demoObject);
+
+const deleteResult = delete demoObject.value;
+
+console.log("Delete Result:", deleteResult);
+console.log("After Delete:", demoObject);
+
+/*
+delete removes object properties.
+
+Trying delete on variables declared
+with let, const, or var is not allowed
+in strict mode.
+*/
+
+
+// ------------------------------------------------------
+// 3 Delete and arrays
+// ------------------------------------------------------
+
+const arr = [1, 2, 3, 4];
+
+console.log("Before:", arr);
+
+delete arr[1];
+
+console.log("After:", arr);
+console.log("Length:", arr.length);
+console.log("Index 1:", arr[1]);
+
+/*
+Arrays become:
+
+[1, empty, 3, 4]
+
+Length remains 4.
+
+This is why delete is dangerous for arrays.
+*/
+
+
+// ------------------------------------------------------
+// 4 Non-configurable property
+// ------------------------------------------------------
+
+const deletePiResult = delete Math.PI;
+
+console.log("Delete Math.PI:", deletePiResult);
+console.log("Math.PI:", Math.PI);
+
+/*
+Math.PI is non-configurable.
+
+JavaScript prevents it from being deleted.
+*/
+
+
+/*
+=========================================================
+WHAT IS A NON-CONFIGURABLE PROPERTY?
+=========================================================
+
+A non-configurable property cannot be deleted
+or reconfigured.
+
+Many built-in JavaScript properties are protected
+this way.
+
+=========================================================
+FINAL QUESTION
+=========================================================
+
+Do NOT use delete to remove items from arrays.
+
+delete leaves an empty slot and keeps the
+original length.
+
+Use:
+
+arr.splice(index, 1)
+
+or
+
+arr.filter(...)
+
+These methods properly remove elements and keep
+the array structure clean.
+=========================================================
+*/
+
+
+
+

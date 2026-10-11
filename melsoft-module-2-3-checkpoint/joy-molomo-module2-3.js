@@ -290,3 +290,205 @@ instead of displaying a validation error.
 
 
 
+
+// ======================================================
+// CHALLENGE 3 - Operators Masterclass
+// ======================================================
+
+// ------------------------------------------------------
+// 1. Arithmetic Operators
+// Calculate monthly net salary
+// ------------------------------------------------------
+
+const grossSalary = 45000;
+const tax = grossSalary * 0.25;
+const uif = grossSalary * 0.01;
+const medicalAid = 2500;
+
+const totalDeductions = tax + uif + medicalAid;
+const netSalary = grossSalary - totalDeductions;
+
+console.log("Gross Salary:", grossSalary);
+console.log("Tax:", tax);
+console.log("UIF:", uif);
+console.log("Medical Aid:", medicalAid);
+console.log("Total Deductions:", totalDeductions);
+console.log("Net Salary:", netSalary);
+
+// Modulo example
+console.log("Salary remainder when divided by 1000:", grossSalary % 1000);
+
+
+// ------------------------------------------------------
+// 2. Assignment Operators
+// Shopping cart using compound assignments
+// ------------------------------------------------------
+
+let cartTotal = 0;
+
+cartTotal += 150;
+cartTotal += 85;
+cartTotal += 220;
+
+console.log("Cart after items:", cartTotal);
+
+cartTotal *= 0.9; // 10% discount
+console.log("After discount:", cartTotal);
+
+cartTotal *= 1.15; // 15% VAT
+console.log("After VAT:", cartTotal);
+
+
+// ------------------------------------------------------
+// 3. Comparison Operators
+// Signup form validation
+// ------------------------------------------------------
+
+const userAge = 22;
+const password = "StrongPass123";
+const email = "joy@example.com";
+const confirmEmail = "joy@example.com";
+
+const ageValid = userAge >= 18;
+const passwordValid = password.length >= 8;
+const emailsMatch = email === confirmEmail;
+
+console.log("Age Valid:", ageValid);
+console.log("Password Valid:", passwordValid);
+console.log("Emails Match:", emailsMatch);
+
+
+// ------------------------------------------------------
+// 4. Logical Operators
+// Premium dashboard access
+// ------------------------------------------------------
+
+const isLoggedIn = true;
+const emailVerified = true;
+const isAdmin = false;
+
+const canAccessDashboard =
+  (isLoggedIn && emailVerified) || isAdmin;
+
+console.log("Can Access Dashboard:", canAccessDashboard);
+
+
+// ------------------------------------------------------
+// 5. Unary Operators
+// Convert string to number and toggle boolean
+// ------------------------------------------------------
+
+const ageInput = "25";
+
+const convertedAge = +ageInput;
+
+console.log("Converted Age:", convertedAge);
+console.log("Converted Age Type:", typeof convertedAge);
+
+let isDarkMode = false;
+
+isDarkMode = !isDarkMode;
+
+console.log("Dark Mode:", isDarkMode);
+
+
+// ------------------------------------------------------
+// 6. Ternary Operator
+// Membership badge system
+// ------------------------------------------------------
+
+const membershipType = "premium";
+
+const membershipBadge =
+  membershipType === "premium"
+    ? "Premium Member"
+    : membershipType === "trial"
+    ? "Trial Member"
+    : "Free Member";
+
+console.log("Membership Badge:", membershipBadge);
+
+
+// ------------------------------------------------------
+// 7. String Concatenation
+// Build greeting two different ways
+// ------------------------------------------------------
+
+const firstName = "Thabo";
+const lastName = "Nkosi";
+const userCurrentAge = 28;
+
+// Using +
+const greetingPlus =
+  "Welcome back " +
+  firstName +
+  " " +
+  lastName +
+  ", you are " +
+  userCurrentAge +
+  " years old.";
+
+// Using template literals
+const greetingTemplate =
+  `Welcome back ${firstName} ${lastName}, you are ${userCurrentAge} years old.`;
+
+console.log(greetingPlus);
+console.log(greetingTemplate);
+
+/*
+Template literals are generally better because
+they are easier to read, easier to maintain,
+and reduce mistakes when combining variables
+and text.
+*/
+
+
+/*
+=========================================================
+INTERVIEW ANSWER 1
+Prefix (++x) vs Postfix (x++)
+=========================================================
+
+let x = 5;
+
+console.log(++x); // 6
+// Prefix increments first, then returns value.
+
+let y = 5;
+
+console.log(y++); // 5
+// Postfix returns current value, then increments.
+
+console.log(y); // 6
+
+=========================================================
+INTERVIEW ANSWER 2
+Three Real-World Uses for Modulo
+=========================================================
+
+1. Determining whether a number is even or odd.
+   Example: number % 2 === 0
+
+2. Rotating through days of the week,
+   months, or menu items in a cycle.
+
+3. Assigning users across servers using
+   load-balancing logic:
+   serverNumber = userId % totalServers
+
+=========================================================
+INTERVIEW ANSWER 3
+Nested Ternaries
+=========================================================
+
+Nested ternaries are acceptable for very small,
+simple decisions such as grade or membership
+classification.
+
+They should be avoided when logic becomes
+complex because they quickly become difficult
+to read and maintain. In larger applications,
+if/else statements are usually clearer.
+=========================================================
+*/
+

@@ -492,3 +492,248 @@ if/else statements are usually clearer.
 =========================================================
 */
 
+
+
+
+// ======================================================
+// CHALLENGE 4 - THE EQUALITY DEEP DIVE
+// ======================================================
+
+// ------------------------------------------------------
+// PART A - Predict and Verify
+// ------------------------------------------------------
+
+// 1
+// Prediction: true
+console.log("1:", 0 == false);
+// Reason: false is converted to 0.
+
+// 2
+// Prediction: false
+console.log("2:", 0 === false);
+// Reason: different types (number vs boolean).
+
+// 3
+// Prediction: true
+console.log("3:", "" == 0);
+// Reason: empty string becomes 0.
+
+// 4
+// Prediction: false
+console.log("4:", "" === 0);
+// Reason: string and number are different types.
+
+// 5
+// Prediction: true
+console.log("5:", "0" == 0);
+// Reason: string "0" is converted to number 0.
+
+// 6
+// Prediction: false
+console.log("6:", "0" === 0);
+// Reason: string and number have different types.
+
+// 7
+// Prediction: true
+console.log("7:", null == undefined);
+// Reason: loose equality treats them as equal.
+
+// 8
+// Prediction: false
+console.log("8:", null === undefined);
+// Reason: different types.
+
+// 9
+// Prediction: false
+console.log("9:", null == 0);
+// Reason: null is only loosely equal to undefined.
+
+// 10
+// Prediction: true
+console.log("10:", null >= 0);
+// Reason: null is converted to 0 during relational comparison.
+
+// 11
+// Prediction: false
+console.log("11:", null > 0);
+// Reason: 0 > 0 is false.
+
+// 12
+// Prediction: false
+console.log("12:", NaN == NaN);
+// Reason: NaN is never equal to itself.
+
+// 13
+// Prediction: false
+console.log("13:", NaN === NaN);
+// Reason: NaN is never equal to itself.
+
+// 14
+// Prediction: true
+console.log("14:", Object.is(NaN, NaN));
+// Reason: Object.is correctly identifies NaN equals NaN.
+
+// 15
+// Prediction: true
+console.log("15:", +0 === -0);
+// Reason: strict equality treats them as equal.
+
+// 16
+// Prediction: false
+console.log("16:", Object.is(+0, -0));
+// Reason: Object.is distinguishes between +0 and -0.
+
+// 17
+// Prediction: true
+console.log("17:", [1, 2, 3] == "1,2,3");
+// Reason: array converts to string.
+
+// 18
+// Prediction: true
+console.log("18:", [] == false);
+// Reason: both become 0 during coercion.
+
+// 19
+// Prediction: true
+console.log("19:", [] == 0);
+// Reason: [] becomes "" then 0.
+
+// 20
+// Prediction: true
+console.log("20:", [0] == false);
+// Reason: [0] becomes "0", then 0.
+
+
+
+/*
+=========================================================
+WHY IS null >= 0 TRUE BUT null > 0 FALSE?
+=========================================================
+
+For relational comparisons, JavaScript converts
+null into the number 0.
+
+null >= 0 becomes:
+0 >= 0
+which is true.
+
+null > 0 becomes:
+0 > 0
+which is false.
+
+This is one of JavaScript's most famous comparison
+quirks.
+=========================================================
+*/
+
+
+
+// ------------------------------------------------------
+// PART B - PASSWORD RESET VALIDATOR
+// ------------------------------------------------------
+
+console.log("\n==============================");
+console.log("TEST CASE 1 - SHOULD PASS");
+console.log("==============================");
+
+const testCase1 = {
+  newPassword: "SecurePass123",
+  confirmPassword: "SecurePass123",
+  currentEmail: "joy@example.com",
+  confirmEmail: "joy@example.com"
+};
+
+console.log(
+  "Passwords Match:",
+  testCase1.newPassword === testCase1.confirmPassword
+    ? "PASS"
+    : "FAIL"
+);
+
+console.log(
+  "Emails Match:",
+  testCase1.currentEmail === testCase1.confirmEmail
+    ? "PASS"
+    : "FAIL"
+);
+
+console.log(
+  "Password Not Email:",
+  testCase1.newPassword !== testCase1.currentEmail
+    ? "PASS"
+    : "FAIL"
+);
+
+console.log(
+  "Password Length:",
+  testCase1.newPassword.length >= 8
+    ? "PASS"
+    : "FAIL"
+);
+
+
+
+console.log("\n==============================");
+console.log("TEST CASE 2 - SHOULD FAIL");
+console.log("==============================");
+
+const testCase2 = {
+  newPassword: "short",
+  confirmPassword: "different",
+  currentEmail: "user@example.com",
+  confirmEmail: "wrong@example.com"
+};
+
+console.log(
+  "Passwords Match:",
+  testCase2.newPassword === testCase2.confirmPassword
+    ? "PASS"
+    : "FAIL"
+);
+
+console.log(
+  "Emails Match:",
+  testCase2.currentEmail === testCase2.confirmEmail
+    ? "PASS"
+    : "FAIL"
+);
+
+console.log(
+  "Password Not Email:",
+  testCase2.newPassword !== testCase2.currentEmail
+    ? "PASS"
+    : "FAIL"
+);
+
+console.log(
+  "Password Length:",
+  testCase2.newPassword.length >= 8
+    ? "PASS"
+    : "FAIL"
+);
+
+
+
+/*
+=========================================================
+FINAL QUESTION
+=========================================================
+
+I used the strict equality operator (===).
+
+=== checks both value and data type.
+
+For password validation we do not want JavaScript
+performing automatic type conversion because it could
+allow values that look equal after coercion but are
+actually different data types.
+
+Using === makes validation more predictable,
+secure, and easier to debug.
+=========================================================
+*/
+
+
+
+
+

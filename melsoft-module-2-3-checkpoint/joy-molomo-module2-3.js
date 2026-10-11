@@ -918,4 +918,283 @@ memorize every precedence rule.
 
 
 
+// ======================================================
+// CHALLENGE 6 - TERNARY AND SHORT-CIRCUIT PATTERNS
+// ======================================================
 
+// ------------------------------------------------------
+// PART A - TERNARY CHAIN FOR GRADE CONVERSION
+// ------------------------------------------------------
+
+console.log("========== PART A ==========");
+
+const percentages = [95, 82, 73, 65, 54, 42, 0, 100];
+
+percentages.forEach((mark) => {
+  const grade =
+    mark >= 90 ? "A" :
+    mark >= 80 ? "B" :
+    mark >= 70 ? "C" :
+    mark >= 60 ? "D" :
+    mark >= 50 ? "E" :
+    "F";
+
+  console.log(`Percentage: ${mark} -> Grade: ${grade}`);
+});
+
+
+// ------------------------------------------------------
+// PART B - SHORT-CIRCUIT DEFAULTS
+// ------------------------------------------------------
+
+console.log("\n========== PART B ==========");
+
+// User with all properties missing
+const user1 = {};
+
+// User with empty string and zero
+const user2 = {
+  displayName: "Joy",
+  theme: "",
+  notificationCount: 0
+};
+
+// User 1 defaults
+const displayName1 = user1.displayName || "Guest User";
+const theme1 = user1.theme || "light";
+const maxResults1 = user1.maxResults || 10;
+const lastLogin1 = user1.lastLogin ?? "Never";
+const notificationCount1 = user1.notificationCount ?? 0;
+
+console.log("User 1:");
+console.log("Display Name:", displayName1);
+console.log("Theme:", theme1);
+console.log("Max Results:", maxResults1);
+console.log("Last Login:", lastLogin1);
+console.log("Notification Count:", notificationCount1);
+
+// User 2 defaults
+const displayName2 = user2.displayName || "Guest User";
+const theme2 = user2.theme || "light";
+const maxResults2 = user2.maxResults || 10;
+const lastLogin2 = user2.lastLogin ?? "Never";
+const notificationCount2 = user2.notificationCount ?? 0;
+
+console.log("\nUser 2:");
+console.log("Display Name:", displayName2);
+console.log("Theme:", theme2);
+console.log("Max Results:", maxResults2);
+console.log("Last Login:", lastLogin2);
+console.log("Notification Count:", notificationCount2);
+
+/*
+Why || and ?? behave differently:
+
+|| treats all falsy values as missing.
+
+Falsy values include:
+0
+""
+false
+null
+undefined
+
+Therefore:
+"" || "light"
+returns "light"
+
+?? only checks for:
+null
+undefined
+
+Therefore:
+0 ?? 10
+returns 0
+
+notificationCount remains 0 because
+0 is not null or undefined.
+*/
+
+
+// ------------------------------------------------------
+// PART C - GUARD CLAUSES WITH && AND OPTIONAL CHAINING
+// ------------------------------------------------------
+
+console.log("\n========== PART C ==========");
+
+const fullUser = {
+  address: {
+    city: "Johannesburg"
+  }
+};
+
+const missingAddressUser = {};
+
+const nullUser = null;
+
+
+// ---------- User with city ----------
+
+console.log(
+  "Full User &&:",
+  fullUser &&
+  fullUser.address &&
+  fullUser.address.city
+);
+
+console.log(
+  "Full User ?.:",
+  fullUser?.address?.city
+);
+
+console.log(
+  "Full User Default:",
+  fullUser?.address?.city ?? "Unknown city"
+);
+
+
+// ---------- User missing address ----------
+
+console.log(
+  "Missing Address &&:",
+  missingAddressUser &&
+  missingAddressUser.address &&
+  missingAddressUser.address.city
+);
+
+console.log(
+  "Missing Address ?.:",
+  missingAddressUser?.address?.city
+);
+
+console.log(
+  "Missing Address Default:",
+  missingAddressUser?.address?.city ?? "Unknown city"
+);
+
+
+// ---------- Null User ----------
+
+console.log(
+  "Null User &&:",
+  nullUser &&
+  nullUser.address &&
+  nullUser.address.city
+);
+
+console.log(
+  "Null User ?.:",
+  nullUser?.address?.city
+);
+
+console.log(
+  "Null User Default:",
+  nullUser?.address?.city ?? "Unknown city"
+);
+
+
+// ------------------------------------------------------
+// PART D - PREDICT THE OUTPUT
+// ------------------------------------------------------
+
+console.log("\n========== PART D ==========");
+
+// 1
+// Prediction: "finally"
+// Type: string
+console.log(
+  "1:",
+  null || undefined || 0 || "" || "finally",
+  "| Type:",
+  typeof (null || undefined || 0 || "" || "finally")
+);
+
+// 2
+// Prediction: 0
+// Type: number
+console.log(
+  "2:",
+  null ?? undefined ?? 0 ?? "" ?? "finally",
+  "| Type:",
+  typeof (null ?? undefined ?? 0 ?? "" ?? "finally")
+);
+
+// 3
+// Prediction: "first truthy"
+// Type: string
+console.log(
+  "3:",
+  0 || "first truthy",
+  "| Type:",
+  typeof (0 || "first truthy")
+);
+
+// 4
+// Prediction: 0
+// Type: number
+console.log(
+  "4:",
+  0 ?? "first non-nullish",
+  "| Type:",
+  typeof (0 ?? "first non-nullish")
+);
+
+// 5
+// Prediction: false
+// Type: boolean
+console.log(
+  "5:",
+  true && false && "never reached",
+  "| Type:",
+  typeof (true && false && "never reached")
+);
+
+// 6
+// Prediction: "third"
+// Type: string
+console.log(
+  "6:",
+  "first" && "second" && "third",
+  "| Type:",
+  typeof ("first" && "second" && "third")
+);
+
+// 7
+// Prediction: "yes"
+// Type: string
+console.log(
+  "7:",
+  false || (true && "yes"),
+  "| Type:",
+  typeof (false || (true && "yes"))
+);
+
+// 8
+// Prediction: "yes"
+// Type: string
+console.log(
+  "8:",
+  (false || true) && "yes",
+  "| Type:",
+  typeof ((false || true) && "yes")
+);
+
+// 9
+// Prediction: 3
+// Type: number
+console.log(
+  "9:",
+  1 && 2 && 3,
+  "| Type:",
+  typeof (1 && 2 && 3)
+);
+
+// 10
+// Prediction: undefined
+// Type: undefined
+console.log(
+  "10:",
+  null?.foo?.bar?.baz,
+  "| Type:",
+  typeof null?.foo?.bar?.baz
+);

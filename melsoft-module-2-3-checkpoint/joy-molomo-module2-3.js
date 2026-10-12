@@ -1936,7 +1936,89 @@ financial calculations.
 
 
 
+// Challenge 11 - Bug Hunt
 
+/*
+BUGS FOUND
+
+1. item1Price stored as string instead of number.
+2. item2Price stored as string instead of number.
+3. quantity stored as string instead of number.
+4. subtotal causes string concatenation.
+5. subtotal calculation lacks clear grouping.
+6. Uses var instead of const/let.
+7. discountCode uses == instead of ===.
+8. isLoggedIn is a string, not a boolean.
+9. customerAge is null, making comparisons unreliable.
+10. canCheckout depends on truthy string "true".
+11. seniorDiscount returns null which later becomes 0 in arithmetic.
+12. finalTotal may be incorrect because of null arithmetic.
+13. Missing validation for customerAge.
+14. Missing numeric conversion for prices if form input is used.
+15. No currency formatting for display.
+*/
+
+// CORRECTED VERSION
+
+const item1Price = 199.99;
+const item2Price = 49.50;
+const item3Price = 125.00;
+
+const quantity = 2;
+
+const discountCode = "SAVE10";
+
+const cartIsLoggedIn = true;
+
+const customerAge = 30;
+
+// Calculate subtotal
+const subtotal =
+    (item1Price + item2Price + item3Price) * quantity;
+
+console.log("Subtotal:", subtotal.toFixed(2));
+
+// Apply discount
+const discount =
+    discountCode === "SAVE10"
+        ? 0.10
+        : 0;
+
+const discountAmount = subtotal * discount;
+
+const afterDiscount = subtotal - discountAmount;
+
+const vat = afterDiscount * 0.15;
+
+const total = afterDiscount + vat;
+
+// Checkout validation
+const canCheckout =
+    isLoggedIn &&
+    (customerAge ?? 0) >= 18;
+
+console.log("Can checkout?", canCheckout);
+
+// Senior discount
+const seniorDiscount =
+    customerAge >= 60
+        ? total * 0.05
+        : 0;
+
+const finalTotal = total - seniorDiscount;
+
+console.log(
+    "Final Total: R" +
+    finalTotal.toFixed(2)
+);
+
+/*
+Expected Output
+
+Subtotal: 748.98
+Can checkout? true
+Final Total: R775.19
+*/
 
 
 

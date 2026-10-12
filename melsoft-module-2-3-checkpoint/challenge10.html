@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Challenge 10 - User Interaction HTML Flow</title>
+</head>
+<body>
+
+    <h1>Challenge 10 - User Interaction HTML Flow</h1>
+    <p>Open this file in your browser and follow the prompts.</p>
+
+    <script>
+
+        // Step 1: Greet the user
+        window.alert("Welcome to Challenge 10!");
+
+        // Step 2: Ask for name
+        let userName = window.prompt("Please enter your name:");
+
+        // Use Guest if Cancel was clicked or input is blank
+        if (userName === null || userName.trim() === "") {
+            userName = "Guest";
+        } else {
+            userName = userName.trim();
+        }
+
+        // Step 3: Ask for age
+        let ageInput = window.prompt("Please enter your age:");
+
+        // Convert to number
+        let age = Number(ageInput);
+
+        // Validate age
+        if (Number.isNaN(age) || age < 1 || age > 120) {
+
+            window.alert(
+                "Invalid age entered. Age must be a number between 1 and 120."
+            );
+
+        } else {
+
+            // Step 4: Assign tier using ternary operator
+            let tier =
+                age < 18
+                    ? "Youth"
+                    : age <= 59
+                        ? "Adult"
+                        : "Senior";
+
+            // Step 5: Ask about newsletter
+            let newsletterSubscribed = window.confirm(
+                "Do you want to subscribe to our newsletter?"
+            );
+
+            // Step 6: Display summary
+            window.alert(
+                `USER SUMMARY
+
+Name: ${userName}
+Age: ${age}
+Tier: ${tier}
+Newsletter: ${newsletterSubscribed ? "Subscribed" : "Not Subscribed"}`
+            );
+
+            console.log("Name:", userName);
+            console.log("Age:", age);
+            console.log("Tier:", tier);
+            console.log("Newsletter:", newsletterSubscribed);
+        }
+
+        /*
+        INTERVIEW ANSWERS
+
+      /*
+1. What does 'blocking' mean when we say alert/confirm/prompt are blocking? Why is that a problem for modern web apps?
+
+Blocking means that JavaScript execution pauses until the user interacts with the dialog. For example, when alert(), confirm(), or prompt() appears, the user must respond before the script continues. This can interrupt the user experience, make the application feel less responsive, and prevent users from interacting with the page normally. This is a problem for modern web apps because they should provide smooth, responsive, and non-disruptive interactions.
+
+
+2. In a real modern web app, what would developers use instead of alert/confirm/prompt?
+
+Developers would typically use custom UI components, such as toast notifications, modal dialogs, confirmation dialogs, and custom forms. These allow users to interact with the application without relying on browser-native blocking dialogs. They also provide better styling, accessibility, and control over the user experience.
+
+
+3. window.prompt() returns what when the user clicks Cancel? What when they leave the field blank and click OK?
+
+When the user clicks Cancel, window.prompt() returns null. When the user leaves the field blank and clicks OK, it returns an empty string ("").
+*/
+
